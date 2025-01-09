@@ -1,5 +1,4 @@
 import { Platform } from "@/lib/types";
-import React, { ReactNode } from "react";
 import {
   FaWindows,
   FaPlaystation,
@@ -11,23 +10,26 @@ import {
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
+import { IconType } from "react-icons";
 const PlatformIconList = ({ platforms }: { platforms: Platform[] }) => {
-  const iconMap: { [key: string]: ReactNode } = {
-    playstation: <FaPlaystation size={20} />,
-    pc: <FaWindows size={20}/>,
-    xbox: <FaXbox size={20} />,
-    mac: <FaApple size={20} />,
-    linux: <FaLinux size={20} />,
-    android: <FaAndroid size={20} />,
-    ios: <MdPhoneIphone size={20} />,
-    nintendo: <SiNintendo  size={20}/>,
-    web: <BsGlobe size={20} />,
+  const iconMap: { [key: string]: IconType } = {
+    playstation: FaPlaystation,
+    pc: FaWindows,
+    xbox: FaXbox,
+    mac: FaApple,
+    linux: FaLinux,
+    android: FaAndroid,
+    ios: MdPhoneIphone,
+    nintendo: SiNintendo,
+    web: BsGlobe,
   };
   return (
     <div className="flex gap-1 text-gray-500">
-      {platforms.map((platform) => (
-        <p key={platform.id}>{iconMap[platform.slug]}</p>
-      ))}
+      {platforms.map((platform) => {
+        const IconComponent = iconMap[platform.slug];
+        if (!IconComponent) return null;
+        return <IconComponent key={platform.id} size={20} />;
+      })}
     </div>
   );
 };
