@@ -1,11 +1,16 @@
-export interface GamesResponse {
+export interface GamesResponse<T> {
   count: number;
-  results: Game[];
+  results: T[];
 }
 export interface Platform {
   id: number;
   slug: string;
   name: string;
+}
+export interface Genre {
+  id: number;
+  name: string;
+  image_background:string
 }
 export interface Game {
   id: number;

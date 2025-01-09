@@ -4,7 +4,7 @@ import ModeSwitch from "./ModeSwitch";
 
 const NavBar = () => {
   return (
-      <nav className=" h-14 flex items-center px-2 justify-between">
+      <nav className=" h-16 flex items-center px-2 justify-between">
         <div className="flex items-center">
           <Gamepad2 size={45} /> NavBar
         </div>
