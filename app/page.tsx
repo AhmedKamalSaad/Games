@@ -1,9 +1,8 @@
 ''
 import { Suspense } from "react";
-import Games from "./_components/Games";
-import GamesLoading from "./_components/GamesLoading";
 import Genres from "./_components/Genres";
 import Spinner from "./_components/Spinner";
+import Games from "./_components/Games";
 
 export default function Home() {
   return (
@@ -18,9 +17,7 @@ export default function Home() {
         </Suspense>
       </div>
       <div className=" flex-1">
-        <Suspense fallback={<GamesLoading />}>
           <Games />
-        </Suspense>
       </div>
     </div>
   );

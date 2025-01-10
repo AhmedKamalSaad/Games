@@ -9,12 +9,13 @@ const GameCard = ({ game }: { game: Game }) => {
     <div className="border flex flex-col items-center rounded-lg overflow-hidden h-[300px] shadow-lg">
       <div className="h-1/2 w-full">
         <Image
+        quality={50}
           src={game.background_image}
           className="object-cover w-full h-full object-top"
           alt="game"
-          width={400}
+          width={300}
           priority
-          height={400}
+          height={150}
         />
       </div>
 
