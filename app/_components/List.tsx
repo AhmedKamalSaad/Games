@@ -24,7 +24,7 @@ import { useStore } from "@/lib/store";
 export function List({ platforms }: { platforms: Platform[] }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const { selectPlatform } = useStore();
+  const { selectPlatform ,setPlatformName} = useStore();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -54,6 +54,8 @@ export function List({ platforms }: { platforms: Platform[] }) {
                   onSelect={(currentValue: string) => {
                     setValue(currentValue === value ? "" : currentValue);
                     selectPlatform(platform.id);
+                    setPlatformName(platform.name)
+
                     setOpen(false);
                   }}
                 >

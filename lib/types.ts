@@ -7,6 +7,8 @@ export interface GameQuery {
   genreId?: number;
   order?: string;
   searchText?: string;
+  genreName?: string;
+  platformName?: string;
 }
 export interface Platform {
   id: number;

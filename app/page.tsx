@@ -6,6 +6,7 @@ import Games from "./_components/Games";
 import PlatformsList from "./_components/PlatformsList";
 import { Skeleton } from "@/components/ui/skeleton";
 import SortingList from "./_components/SortingList";
+import Heading from "./_components/Heading";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
           </Suspense>
           <SortingList />
         </div>
+        <Heading />
         <Games />
       </div>
     </div>
