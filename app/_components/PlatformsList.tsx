@@ -1,6 +1,5 @@
 import getData from "@/lib/getData";
 import { Platform } from "@/lib/types";
-import React from "react";
 import { List } from "./List";
 
 const PlatformsList = async () => {
@@ -8,7 +7,10 @@ const PlatformsList = async () => {
     "platforms/lists/parents"
   );
   if (error) return <p>No Platforms</p>;
-  return <List platforms={platforms || []} />;
+
+  return (
+      <List platforms={platforms || []} />
+  );
 };
 
 export default PlatformsList;

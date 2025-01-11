@@ -7,7 +7,7 @@ import { useStore } from "@/lib/store";
 import GamesLoading from "./GamesLoading";
 
 const Games = () => {
-  const { genreId } = useStore();
+  const { gameQuery } = useStore();
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,10 @@ const Games = () => {
         setIsLoading(true);
         const { data, error } = await getData<Game>(
           "games",
-          genreId || undefined
+          gameQuery.genreId,
+          gameQuery.platformId,
+          gameQuery.order,
+          gameQuery.searchText
         );
         if (error) {
           setIsLoading(false);
@@ -33,11 +36,11 @@ const Games = () => {
     };
 
     fetchGames();
-  }, [genreId]);
+  }, [gameQuery]);
   if (isLoading) return <GamesLoading />;
   if (error) return <div>{error}</div>;
   return (
-    <div className="grid gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-2 px-2">
+    <div className="grid gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
       {games?.map((g) => (
         <GameCard key={g.id} game={g} />
       ))}

@@ -10,7 +10,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Platform } from "@/lib/types";
 import {
   Command,
   CommandEmpty,
@@ -20,11 +19,14 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useStore } from "@/lib/store";
-
-export function List({ platforms }: { platforms: Platform[] }) {
+interface Sort {
+  value: string;
+  label: string;
+}
+export function Sorting({ array }: { array: Sort[] }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const { selectPlatform } = useStore();
+  const { setOrder } = useStore();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -33,35 +35,35 @@ export function List({ platforms }: { platforms: Platform[] }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[220px] justify-between"
         >
           {value
-            ? platforms.find((platform) => platform.name === value)?.name
-            : "Select Platform"}
+            ? `Ordered by : ${array.find((a) => a.label === value)?.label}`
+            : "Select Order"}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search platform" />
+          <CommandInput placeholder="select order" />
           <CommandList>
-            <CommandEmpty>No platform found.</CommandEmpty>
+            <CommandEmpty>No Order found.</CommandEmpty>
             <CommandGroup>
-              {platforms.map((platform) => (
+              {array.map((a, i) => (
                 <CommandItem
-                  key={platform.id}
-                  value={platform.name}
+                  key={i}
+                  value={a.label}
                   onSelect={(currentValue: string) => {
                     setValue(currentValue === value ? "" : currentValue);
-                    selectPlatform(platform.id);
+                    setOrder(a.value)
                     setOpen(false);
                   }}
                 >
-                  {platform.name}
+                  {a.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === platform.name ? "opacity-100" : "opacity-0"
+                      value === a.label ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

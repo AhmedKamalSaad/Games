@@ -2,6 +2,12 @@ export interface GamesResponse<T> {
   count: number;
   results: T[];
 }
+export interface GameQuery {
+  platformId?: number;
+  genreId?: number;
+  order?: string;
+  searchText?: string;
+}
 export interface Platform {
   id: number;
   slug: string;
@@ -10,7 +16,7 @@ export interface Platform {
 export interface Genre {
   id: number;
   name: string;
-  image_background:string
+  image_background: string;
 }
 export interface Game {
   id: number;

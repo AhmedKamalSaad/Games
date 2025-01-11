@@ -5,13 +5,13 @@ import { Genre } from "@/lib/types";
 import React from "react";
 
 const GenreButton = ({ genre }: { genre: Genre }) => {
-  const { setGenre, genreId } = useStore();
+  const { setGenre, gameQuery } = useStore();
 
   return (
     <Button
       variant={"link"}
       className={`tracking-wide p-0 opacity-90 ${
-        genre.id === genreId ? "font-bold opacity-100" : ""
+        genre.id === gameQuery.genreId ? "font-bold opacity-100" : ""
       } `}
       onClick={() => setGenre(genre.id)}
     >
