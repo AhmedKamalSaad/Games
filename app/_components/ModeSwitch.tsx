@@ -22,7 +22,7 @@ const ModeSwitch = () => {
         checked={theme === "dark"}
         onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
       />
-      <Label htmlFor="airplane-mode">Dark Mode</Label>
+      <Label htmlFor="airplane-mode" className="text-nowrap">Dark Mode</Label>
     </div>
   );
 };
