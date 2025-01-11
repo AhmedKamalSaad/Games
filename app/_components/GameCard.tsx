@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
+import Emoji from "./Emoji";
 
 const GameCard = ({ game }: { game: Game }) => {
   const src =
@@ -10,7 +11,7 @@ const GameCard = ({ game }: { game: Game }) => {
       ? "/No_Image_Available.jpg"
       : game.background_image;
   return (
-    <div className="border flex flex-col items-center rounded-lg overflow-hidden h-[300px] shadow-lg">
+    <div className="border flex flex-col items-center rounded-lg overflow-hidden h-[330px] shadow-lg">
       <div className="h-1/2 w-full">
         <Image
           quality={50}
@@ -31,6 +32,8 @@ const GameCard = ({ game }: { game: Game }) => {
           />
           {game.metacritic && <CriticScore score={game.metacritic} />}
         </div>
+        <div className="w-7 h-7 -mt-1"><Emoji rating={game.rating_top} /></div>
+        
       </div>
     </div>
   );

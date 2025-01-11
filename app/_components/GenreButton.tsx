@@ -10,8 +10,8 @@ const GenreButton = ({ genre }: { genre: Genre }) => {
   return (
     <Button
       variant={"link"}
-      className={`tracking-wide p-0 opacity-90 ${
-        genre.id === gameQuery.genreId ? "font-bold opacity-100" : ""
+      className={`tracking-wide text-start p-0 opacity-90 text-wrap ${
+        genre.id === gameQuery.genreId ? " font-bold opacity-100" : ""
       } `}
       onClick={() => {
         setGenre(genre.id);
