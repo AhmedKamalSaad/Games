@@ -12,15 +12,16 @@ const SearchInput = () => {
       className="relative w-full mx-3"
       onSubmit={(event) => {
         event.preventDefault();
-        if (ref.current) setSearchText(ref.current.value);
+        if (ref.current && ref.current.value.trim() !== "")
+          setSearchText(ref.current.value);
       }}
     >
       <Input
         ref={ref}
-        placeholder="search games...."
+        placeholder="Search games..."
         className="w-full rounded-full bg-primary-foreground"
       />
-      <Search className="absolute top-1 right-2" />
+      <Search aria-hidden="true" className="absolute top-1 right-2" />
     </form>
   );
 };
