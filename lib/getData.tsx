@@ -10,7 +10,7 @@ const getData = async <T,>(
   const apiKey = process.env.NEXT_PUBLIC_RAWG_API_KEY;
   const params = new URLSearchParams();
   if (genreId) params.append("genres", genreId.toString());
-  if (platformId) params.append("platforms", platformId.toString());
+  if (platformId) params.append("parent_platforms", platformId.toString());
   if (order) params.append("ordering", order);
   if (searchText) params.append("search", searchText);
   if (pageParam) params.append("page", pageParam.toString());

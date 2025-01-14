@@ -2,10 +2,12 @@
 import { Input } from "@/components/ui/input";
 import { useStore } from "@/lib/store";
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 
 const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
+  const { push } = useRouter();
   const { setSearchText } = useStore();
   return (
     <form
@@ -14,6 +16,7 @@ const SearchInput = () => {
         event.preventDefault();
         if (ref.current && ref.current.value.trim() !== "")
           setSearchText(ref.current.value);
+        push("/");
       }}
     >
       <Input

@@ -4,6 +4,7 @@ import React from "react";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
+import Link from "next/link";
 
 const GameCard = ({ game }: { game: Game }) => {
   const src =
@@ -11,7 +12,7 @@ const GameCard = ({ game }: { game: Game }) => {
       ? "/No_Image_Available.jpg"
       : game.background_image;
   return (
-    <div className="border flex flex-col items-center rounded-lg overflow-hidden h-[330px] shadow-lg">
+    <div className="border flex flex-col items-center rounded-lg overflow-hidden h-[330px] shadow-lg hover:scale-105 transition-transform">
       <div className="h-1/2 w-full">
         <Image
           quality={50}
@@ -25,7 +26,7 @@ const GameCard = ({ game }: { game: Game }) => {
       </div>
 
       <div className="w-full h-1/2 p-4 flex flex-col gap-2">
-        <h1 className="text-2xl ">{game.name}</h1>
+        <Link href={game.slug} className="text-2xl ">{game.name}</Link>
         <div className="flex justify-between">
           <PlatformIconList
             platforms={game.parent_platforms.map((p) => p.platform)}
