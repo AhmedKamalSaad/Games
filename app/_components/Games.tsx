@@ -1,39 +1,20 @@
 "use client";
-import getData from "@/lib/getData";
-import { useStore } from "@/lib/store";
-import { Game, GamesResponse } from "@/lib/types";
-import {
-  useInfiniteQuery,
-} from "@tanstack/react-query";
 import React from "react";
 import GameCard from "./GameCard";
 import GamesLoading from "./GamesLoading";
 import { Button } from "@/components/ui/button";
+import useGames from "@/lib/useGames";
 
 const Games = () => {
-  const { gameQuery } = useStore();
-  const fetchGames = async ({ pageParam }: { pageParam: number }) => {
-    const { data } = await getData<Game>("games", gameQuery, pageParam);
-    console.log(data); // Add logging to inspect the data
-    return data as GamesResponse<Game>;
-  };
-
   const {
     data,
-    isLoading,
-    isError,
     error,
     fetchNextPage,
     hasNextPage,
+    isError,
     isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["games", gameQuery],
-    queryFn: fetchGames,
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.next ? allPages.length + 1 : undefined;
-    },
-    initialPageParam: 9,
-  });
+    isLoading,
+  } = useGames();
   if (isLoading) return <GamesLoading />;
   if (isError)
     return (
@@ -49,7 +30,8 @@ const Games = () => {
         </React.Fragment>
       ))}
       <div className="-mt-3">
-        <Button className="bg-transparent text-foreground hover:scale-105 hover:bg-transparent "
+        <Button
+          className="bg-transparent text-foreground hover:bg-transparent border  "
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
         >
