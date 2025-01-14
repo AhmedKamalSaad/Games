@@ -9,7 +9,7 @@ const Genres = async () => {
   if (error) return <p>{error}</p>;
   return (
     <div className="flex flex-col gap-2 w-full px-2">
-      {genres?.map((g) => (
+      {genres?.results.map((g) => (
         <div key={g.id} className="flex gap-2 justify-start items-center">
           <div className="w-7 h-7 shrink-0  rounded-md overflow-hidden">
             <Image

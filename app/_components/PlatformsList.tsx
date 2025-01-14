@@ -8,9 +8,7 @@ const PlatformsList = async () => {
   );
   if (error) return <p>No Platforms</p>;
 
-  return (
-      <List platforms={platforms || []} />
-  );
+  return <List platforms={platforms?.results || []} />;
 };
 
 export default PlatformsList;

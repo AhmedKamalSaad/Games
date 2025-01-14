@@ -1,49 +1,65 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import GameCard from "./GameCard";
 import getData from "@/lib/getData";
-import { Game } from "@/lib/types";
 import { useStore } from "@/lib/store";
+import { Game, GamesResponse } from "@/lib/types";
+import {
+  useInfiniteQuery,
+} from "@tanstack/react-query";
+import React from "react";
+import GameCard from "./GameCard";
 import GamesLoading from "./GamesLoading";
+import { Button } from "@/components/ui/button";
 
 const Games = () => {
   const { gameQuery } = useStore();
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const fetchGames = async ({ pageParam }: { pageParam: number }) => {
+    const { data } = await getData<Game>("games", gameQuery, pageParam);
+    console.log(data); // Add logging to inspect the data
+    return data as GamesResponse<Game>;
+  };
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        setIsLoading(true);
-        const { data, error } = await getData<Game>(
-          "games",
-          gameQuery.genreId,
-          gameQuery.platformId,
-          gameQuery.order,
-          gameQuery.searchText
-        );
-        if (error) {
-          setIsLoading(false);
-          setError(error);
-        } else {
-          setIsLoading(false);
-          setGames(data || []);
-        }
-      } catch {
-        setError("An error occurred while fetching the games.");
-      }
-    };
-
-    fetchGames();
-  }, [gameQuery]);
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["games", gameQuery],
+    queryFn: fetchGames,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.next ? allPages.length + 1 : undefined;
+    },
+    initialPageParam: 9,
+  });
   if (isLoading) return <GamesLoading />;
-  if (error) return <div>{error}</div>;
+  if (isError)
+    return (
+      <div>{error instanceof Error ? error.message : "An error occurred"}</div>
+    );
   return (
     <div className="grid gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
-      {games?.map((g) => (
-        <GameCard key={g.id} game={g} />
+      {data?.pages.map((page, i) => (
+        <React.Fragment key={i}>
+          {page.results.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </React.Fragment>
       ))}
+      <div className="-mt-3">
+        <Button className="bg-transparent text-foreground hover:scale-105 hover:bg-transparent "
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Load More"
+            : "Nothing more to load"}
+        </Button>
+      </div>
     </div>
   );
 };
