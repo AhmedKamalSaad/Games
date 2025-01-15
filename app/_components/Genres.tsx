@@ -3,6 +3,7 @@ import React from "react";
 import GenreButton from "./GenreButton";
 import getData from "@/lib/getData";
 import { Genre } from "@/lib/types";
+import getCroppedImage from "@/lib/getCroppedImage";
 
 const Genres = async () => {
   const { data: genres, error } = await getData<Genre>("genres");
@@ -13,12 +14,13 @@ const Genres = async () => {
         <div key={g.id} className="flex gap-2 justify-start items-center">
           <div className="w-7 h-7 shrink-0  rounded-md overflow-hidden">
             <Image
-              src={g.image_background}
+              src={getCroppedImage(g.image_background)}
               alt="genre"
               width={50}
               height={50}
-              quality={80}
+              quality={50}
               className="object-cover h-full w-full"
+              loading="lazy"
             />
           </div>
           <GenreButton genre={g} />

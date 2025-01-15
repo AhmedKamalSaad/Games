@@ -14,6 +14,8 @@ const GenreButton = ({ genre }: { genre: Genre }) => {
         genre.id === gameQuery.genreId ? " font-bold opacity-100" : ""
       } `}
       onClick={() => {
+        console.log('ahmed')
+        debugger
         setGenre(genre.id);
         setGenreName(genre.name);
       }}
