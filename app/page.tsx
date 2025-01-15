@@ -7,7 +7,7 @@ import Heading from "./_components/Heading";
 export default function Home() {
   return (
     <div className="flex pb-3 h-screen" >
-      <div className="hidden md:block w-52 px-2 ">
+      <div className="hidden md:block w-52 px-2  ">
           <Genres />
       </div>
       <div className=" flex-1">

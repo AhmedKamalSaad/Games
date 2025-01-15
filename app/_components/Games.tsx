@@ -21,7 +21,7 @@ const Games = () => {
       <div>{error instanceof Error ? error.message : "An error occurred"}</div>
     );
   return (
-    <div className="grid gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
+    <div className="grid gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 pl-2 pr-3 ">
       {data?.pages.map((page, i) => (
         <React.Fragment key={i}>
           {page.results.map((game) => (

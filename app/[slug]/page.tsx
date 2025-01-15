@@ -11,7 +11,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { data } = await getGame(slug);
   console.log(data.id);
   return (
-    <div className=" max-w-screen-2xl pl-3 pt-5 flex flex-col gap-2 pb-9">
+    <div className=" max-w-screen-2xl px-3  pt-5 flex flex-col gap-2 pb-9">
       <h1 className="text-4xl font-bold  tracking-wide">{data.name}</h1>
       <ExpandableText>{data.description_raw}</ExpandableText>
       <div className="grid grid-cols-2 gap-y-5">
