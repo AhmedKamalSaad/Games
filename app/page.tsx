@@ -10,8 +10,8 @@ export default function Home() {
       <div className="hidden md:block w-52 px-2  ">
           <Genres />
       </div>
-      <div className=" flex-1">
-        <div className="flex gap-2 ml-2">
+      <div className=" w-full">
+        <div className="flex gap-2 px-2">
           <PlatformsList />
           <SortingList />
         </div>
