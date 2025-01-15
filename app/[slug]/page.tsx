@@ -35,18 +35,24 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
         </Details>
       </div>
       <TrailerVideo gameId={data.id} />
-      <Screenshots gameId={data.id}/>
+      <Screenshots gameId={data.id} />
     </div>
   );
 };
 
 export default page;
 
-export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
-  const slug = params.slug;
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const slug = (await params).slug;
   const { data } = await getGame(slug);
   return {
     title: data.name,
-    description: data.description_raw?.substring(0, 150) || "Discover more about this game.",
+    description:
+      data.description_raw?.substring(0, 150) ||
+      "Discover more about this game.",
   };
 };
